@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProductoApp.Models
 {
-    public class Usuario
+    public class User
     {
         public int IdUsuario { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string UserMail { get; set; }
+        public string UserPassword { get; set; }
     }
 }

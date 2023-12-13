@@ -1,55 +1,58 @@
-using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using ProductoApp.Models;
 using ProductoApp.Services;
+using Microsoft.Maui.Controls;
+using System;
+using System.Linq;
+using ProductoApp.Services;
+using ProductoApp;
+using ProductoApp.Models;
 
-namespace ProductoApp;
-
-public partial class LoginPage : ContentPage
+namespace ProductoApp
 {
-    private readonly APIService _APIService;
-    public LoginPage(APIService apiservice)
-	{
-		InitializeComponent();
-        _APIService = apiservice;
-       
-    }
-
-    protected async override void OnAppearing()
+    public partial class LoginPage : ContentPage
     {
-        base.OnAppearing();
-        string username = Preferences.Get("username", "0");
-        if(!username.Equals("0"))
-        {
-            await Navigation.PushAsync(new ProductoPage(_APIService));
-        }
-    }
+        private User _usuarios;
+        private readonly APIService _APIService;
 
-    private async void OnClickLogin(object sender, EventArgs e)
-    {
-        string username = Username.Text;
-        string password = Password.Text;
-        Usuario usuario = new Usuario
+
+        public LoginPage(APIService apiservice)
         {
-            IdUsuario = 0,
-            Username = username,
-            Password = password
-        };
-        
-        Usuario usuario2 = _APIService.PostUsuario(usuario);
-        if (usuario2!=null)
-        {
-            Preferences.Set("username", username);
-            Preferences.Set("idusuario", usuario2.IdUsuario);
-            await Navigation.PushAsync(new ProductoPage(_APIService));
-        }
-        else
-        {
-            var toast = Toast.Make("Nombre de usuario o password incorrecto", ToastDuration.Short, 14);
-            await toast.Show();
+            InitializeComponent();
+            _APIService = apiservice;
         }
 
-          
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            /*string username = Preferences.Get("username", "0");
+            if (!username.Equals("0"))
+            {
+                Navigation.PushAsync(new ProductoPage(_APIService));
+            }*/
+        }
+
+        private async void OnClickLogin(object sender, EventArgs e)
+        {
+            _usuarios = new User
+            {
+                UserMail = Username.Text,
+                UserPassword = Password.Text
+            };
+            bool isValidUser = await _APIService.VerificarUsuario(_usuarios);
+            if (isValidUser)
+            {
+                // Usuario válido, puedes realizar la navegación a la siguiente página
+                await Navigation.PushAsync(new ProductoPage(_APIService));
+            }
+            else
+            {
+                // Muestra una alerta u otro mensaje indicando que el inicio de sesión falló
+                await DisplayAlert("Error", "Inicio de sesión fallido/Credenciales incorrectas", "OK");
+            }
+
+
+        }
 
     }
 }

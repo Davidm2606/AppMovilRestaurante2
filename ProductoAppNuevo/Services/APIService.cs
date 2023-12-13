@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.Maui.ApplicationModel.Permissions;
@@ -81,17 +82,42 @@ namespace ProductoApp.Services
             var response = await httpClient.DeleteAsync($"api/Plato/{IdPlato}");
             return response.IsSuccessStatusCode;
         }
+        public async Task<bool> VerificarUsuario(User userToValidate)
+        {
+            //var content = new StringContent(JsonConvert.SerializeObject(userToValidate), Encoding.UTF8, "application/json");
+            //var response = await _httpClient.PostAsync("/api/User", content);
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
 
-        public Usuario PostUsuario(Usuario usuario)
+            if (userToValidate != null)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(userToValidate), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("/api/User", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    var userFromServer = JsonConvert.DeserializeObject<User>(responseData);
+                    if (response != null && userToValidate.UserPassword == userToValidate.UserPassword && userToValidate.UserMail == userToValidate.UserMail)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public User PostUsuario(User usuario)
         {
             if (usuario != null){
-                if (usuario.Username.Equals("David") && usuario.Password.Equals("1234"))
+                if (usuario.UserMail.Equals("David") && usuario.UserPassword.Equals("1234"))
                 {
-                    return new Usuario
+                    return new User
                     {
                         IdUsuario=100,
-                        Username=usuario.Username,
-                        Password="",
+                        UserMail=usuario.UserMail,
+                        UserPassword="",
                     };
                 }
             

@@ -3,32 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductoApp.DetalleProductoPage"
              Title="DetalleProductoPage">
-    <VerticalStackLayout>
-
-            <Image Source="dotnet_bot.png"
-           HorizontalOptions="Center"
-           HeightRequest="200"/>
-            <Label x:Name="Nombre"
-           Text="Nombre"
-           FontSize="32"
-           HorizontalOptions="Center"/>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Cantidad: "
-                FontSize="18"/>
-                <Label x:Name="Cantidad"
+    <VerticalStackLayout BackgroundColor="Black">
+        <Image Source="salchipapa.png"
+            HorizontalOptions="Center"
+            HeightRequest="100"
+            WidthRequest="100"
+            Margin="10"/>
+        <Label x:Name="Nombre"
+            Text="Nombre"
+            FontSize="25"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+        <StackLayout Orientation="Horizontal" Margin="5">
+            <Label Text="Cantidad: "
+                FontSize="20"
+                FontAttributes="Bold"/>
+            <Label x:Name="Cantidad"
                 Text="Cantidad"
-                FontSize="18"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Decripción: "
-                FontSize="18"/>
-                <Label x:Name="Descripcion"
-                Text="Ingredientes"
-                FontSize="18"/>
-            </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Button Text="Agregar al carrito" Clicked="AgregarAlCarrito_Clicked">
-            </Button>
+                FontSize="20"/>
         </StackLayout>
+        <StackLayout Orientation="Horizontal" Margin ="5">
+            <Label Text="Descripcion: "
+                FontSize="20"
+                FontAttributes="Bold"/>
+            <Label x:Name="Descripcion"
+                Text="Descripcion"
+                FontSize="20"/>
+        </StackLayout>
+        <AbsoluteLayout>
+            <Button Text="Agregar al carrito"
+                 TextColor="AntiqueWhite"
+                 FontAttributes="Bold"
+                 BackgroundColor="#851623"
+                 Clicked="AgregarAlCarrito_Clicked"
+                 FontSize="17"
+                 Margin="18" />
+        </AbsoluteLayout>
     </VerticalStackLayout>
 </ContentPage>

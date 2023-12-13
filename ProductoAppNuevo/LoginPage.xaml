@@ -3,18 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductoApp.LoginPage"
              Title="LoginPage">
-    <VerticalStackLayout>
+    <StackLayout VerticalOptions="Start" 
+                 HorizontalOptions="Center" 
+                 Margin="60">
         <TableView>
             <TableRoot>
-                <TableSection Title="Ingrese sus datos">
+                <TableSection Title="Ingrese sus datos" TextColor="White">
                     <EntryCell x:Name="Username"
-                        Placeholder="Nombre de Usuario"/>
+                               Placeholder="Usuario"
+                               HorizontalTextAlignment="Center"/>
                     <EntryCell x:Name="Password"
-                        Placeholder="Contraseña"/>
+                               Placeholder="Contraseña"
+                               HorizontalTextAlignment="Center"/>
                 </TableSection>
             </TableRoot>
         </TableView>
         <Button Text="Ingresar"
+                TextColor="AntiqueWhite"
+                BackgroundColor="#851623"
                 Clicked="OnClickLogin"/>
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentPage>

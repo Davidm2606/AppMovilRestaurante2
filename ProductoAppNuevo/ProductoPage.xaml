@@ -5,7 +5,7 @@
              Title="ProductoPage">
     <VerticalStackLayout BackgroundColor="Black">
         <HorizontalStackLayout HorizontalOptions="Center">
-            <Image Source="alimento.png"
+            <Image Source="logo.png"
                    HeightRequest="80"
                    WidthRequest="80"
                    Aspect="Fill"
@@ -29,12 +29,13 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Image Source="salchipapa.png"
+                            <Image 
                                    HeightRequest="50"
                                    WidthRequest="100"/>
                             <StackLayout Orientation="Vertical">
                                 <Label
                                     Text="{Binding Nombre}"
+                                    TextColor="AliceBlue"
                                     VerticalOptions="Start"
                                     FontSize="20"/>
                                 <Label
